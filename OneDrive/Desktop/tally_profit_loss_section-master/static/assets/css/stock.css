@@ -1,0 +1,40 @@
+.form-stock {
+    visibility: hidden;       
+    position: fixed;
+    top: 230px;
+    right: 27px;
+    background-color: rgb(216, 232, 238); 
+    border: 1px solid #f1f1f1;
+    z-index: 9;
+    width: 300px;
+  
+  
+  }
+
+  .form-category {
+    visibility: hidden;       
+    position: fixed;
+    top: 230px;
+    right: 27px;
+    background-color: rgb(216, 232, 238); 
+    border: 1px solid #f1f1f1;
+    z-index: 9;
+    width: 300px;
+  
+  
+  }
+  .form-units {
+    visibility: hidden;       
+    position: fixed;
+    top: 230px;
+    right: 27px;
+    background-color: rgb(216, 232, 238); 
+    border: 1px solid #f1f1f1;
+    z-index: 9;
+    width: 300px;
+
+  
+  }
+  .hide{
+    display: none;
+}
