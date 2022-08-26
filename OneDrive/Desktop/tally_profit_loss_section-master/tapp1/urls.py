@@ -8,6 +8,8 @@ urlpatterns = [
     path('stock_item',views.stock_items,name='stock_items'),
     path('group',views.stock_groups,name="stock_groups"),
     path('payhead',views.payhead,name='payhead'),
-    path('items',views.item_list,name='item_list')
+    path('items/<int:pk>',views.item_list,name='item_list'),
+    path('payhead_list',views.payhead_list,name='payhead_list'),
+    path('ledger',views.ledger,name='ledger'),
   
 ]

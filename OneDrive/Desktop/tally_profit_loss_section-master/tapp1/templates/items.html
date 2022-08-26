@@ -1,140 +1,82 @@
-
 {% extends 'base.html' %}
-
 
 {% block body %}
 
-<style type="text/css">
-
-
-    .b1{
-        height: 600px;
-        
-        
-    }
-    
-    .head{
-        border-bottom: 1px solid;
-        /* border-bottom: 1px solid; */
-    
-    }
-    
-    .par{
-        letter-spacing: 2px;
-     
-        padding: 15px;
-    
-    }
-    .ul{
-       
-    
-        letter-spacing: 2px;
-        font-size: medium;
-    }
-    .list2{
-        margin: 2px;
-        list-style-type: none;
-    }
-    .list2:hover{
-        background-color: darkgoldenrod;
-    }
-    
-    .ABC{
-    
-        font-size: small;
-        padding-right: 25px;
-        float: right;
-        padding-top: 10px;
-        font-weight: 700;
-    
-    
-    }
-    .total{
-        padding: 10px;
-        margin-left: -60px;
-    }
-    </style>
+<style>
+  
+.table_row:hover{
+  background-color: darkgoldenrod;
+}
 
 
 
 
+.ABC{
+    text-align: right;
+    display: flex;
+    flex: 1;
+   margin-left: 150px;
+
+}
+.head{
+    text-align: center;
+}
+</style>
 
 
-<div class="container-fluid "  style="border: 1px solid;">
+<div class="container-fluid "style=" border: 1px solid rgba(128, 128, 128, 0.6);background-color:rgba(0,0,0,.4);" >
+    
     <div class="row">
-        <div class="col-sm-12 m-0 p-0 b1 " style="border-right: 1px solid;" >
+        <div class="col-sm-12 m-0 p-0 b1 " style=" " >
            
 
-            <div class="row ml-0" style="border-bottom: 1px solid; margin: 0px;">
-                <div class="col-sm-9 m-0 p-0 head" ><h4 class=" par" style="margin-top: 20px;margin-left: 40px; ">particulars</h4></div>
-                    <div class="col-sm-3 m-0 p-0 head" style="border-left: 1px solid; "><p class=" ABC" style="margin-top: 20px;"><center>ABC Limited </br>For 1-Apr-22 </center></p>
-                        
-                <div class="row" style="border-top: 1px solid; margin: 0px;">
-                    <div class="col-sm-9 m-0 p-0 " ><p class="ABC"><h6 style="margin-left: 100px;">Opening Balance</h6></p></div></div>
-                    <div class="row" style="border-top: 1px solid; margin: 0px;">
-                        <div class="col-sm-6 m-0 p-0 " ><p class="ABC"><h6 style="margin-left: 50px;">Debit</h6></p></div>
-                        <div class="col-sm-6 m-0 p-0 " style="border-left: 1px solid;"><p class="ABC"><h6 style="margin-left: 50px;">Credit</h6></p></div></div>
-                        
-                    
-                    
-                
-                    </div>
-                    
-
+            <div class="row m-0" style="border-bottom: 1px solid rgba(128, 128, 128, 0.6)">
+                <div class="col-sm-3 m-0 p-0 "style="border-right: 1px solid rgba(128, 128, 128, 0.6)" ><h5 class=" par">particulars</h6></div>
+                    <div class="col-sm-3 m-0 pl-5 " ><h5 class=" par">Closing Balance</h6></div>
+                    <div class="col-sm-3 m-0 p-0 head"><p class=" ABC">ABC Limited </br>For 1-Apr-22</br></p></div>
             </div>
 
-            <ul class="ul" style="margin-top: 50px;">
-               
-                {% for p2 in p %}
-                
-                <div class="row list2" >
-                <div class="col-sm-6 m-0 p-0"><li class="list2"><a href="{% url 'expensemonth' p2.id %}">{{p2.name}}</a></li></div>
-                <div class="col-sm-6 m-0 p-0 "><li class="list2" style="margin-left: 500px;">{{p2.opening_balance}}.00</li></div></div>
-               
+
+            <table class="table " style="border: 1px solid rgba(128, 128, 128, 0.6)">
+                <thead>
+                  <tr class="col ">
+                    <th scope="col"></th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Rate</th>
+                    <th scope="col">Value</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for p in std %}
+                  <tr>
+                    <td class="table_row"><a class="m-3" href="">{{p.name}}</a></td>
+                    <td  class="table_row">{{p.quantity}} jk</td>
+                    <td  class="table_row">{{p.rate}}</td>
+                    <td  class="table_row">{{p.value}}</td>
+                  </tr>
                 {% endfor %}
+                  
+                </tbody>
+              </table>
 
-               
-               
-               
-                
-            </ul>
-
-           
-
-
-          
-            
         </div>
 
-       
+      
 
-       
-
-
-
-        <div class="col-sm-12 m-0 p-0  " style="border-right: 1px solid; border-top: 1px solid;" >
+        <div class="col-sm-12 m-0 p-0  "style="border-top: 1px solid rgba(128, 128, 128, 0.6)"  >
            
 
-            <div class="row ml-2" style="margin-top: 15px;margin-bottom: 15px; font-size: 18px;">
-                <div class="col-sm-11 m-0 p-0 " ><a style="margin-left: 30px;">Grand Total</a></div>
-                <div class="col-sm-1 m-0 p-0 " ><a class="total" >1000.00</a></div>
+            <div class="row m-0" >
+                <div class="col-sm-6 m-0 p-0 " ><a class="total">Grand Total</a></div>
                    
             </div>
 
-            
-
-          
-            
         </div>
-        <script>
 
-    function add(){
-            let sum = 0;
-            for (let i = 1; i <= 6; i++) {
-                sum = sum + i;
-            }
-                console.log(sum)}
-//Output: 21
-        </script>
-        {% endblock %} 
-       
+
+    </div>
+</div>
+
+
+
+{% endblock %}

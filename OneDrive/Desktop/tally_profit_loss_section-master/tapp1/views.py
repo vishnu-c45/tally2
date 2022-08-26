@@ -16,9 +16,13 @@ def stockgroup(request):
     std=CreateStockGrp.objects.all()
     return render(request,'stockgroup.html',{'std':std})
 
-def item_list(request):
-    std=group_summary.objects.filter()
-    return render(request,'items.html')    
+def item_list(request,pk):
+    std=group_summary.objects.filter(CreateStockGrp_id=pk)
+    return render(request,'items.html',{'std':std})  
+
+def  payhead_list(request):
+    std=payhead_crt.objects.all()
+    return render(request,'payhead_items.html',{'std':std}) 
 
 
 def stock_groups(request):
@@ -80,4 +84,5 @@ def payhead(request):
         crt.save()
     return render(request,'payhead.html',{'pay':pay})
 
-
+def ledger(request):
+    return render(request,'ledger.html')

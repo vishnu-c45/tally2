@@ -35,7 +35,7 @@
                 <tbody>
                 {% for p in std %}
                   <tr>
-                    <td class="table_row"><a href="{% url 'item_list' %}">{{p.name}}</a></td>
+                    <td class="table_row"><a href="{% url 'item_list' p.id %}">{{p.name}}</a></td>
                     <td></td>
                     <td></td>
                     <td></td>
