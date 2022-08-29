@@ -8,6 +8,9 @@
   background-color: darkgoldenrod;
 }
 
+.name{
+  margin-right: -53.5px;
+}
 </style>
 
 
@@ -16,14 +19,15 @@
     <div class="row">
         <div class="col-sm-12 m-0 p-0 b1 " style=" " >
            
+          <div class="row m-0" style="border-bottom: 1px solid rgba(128, 128, 128, 0.6)">
+            <div class="col-sm-3 m-0 p-0 "style="border-right: 1px solid rgba(128, 128, 128, 0.6)" ><h5 class=" par">particulars</h6></div>
+                <div class="col-sm-3 m-0 pl-5 " ><h5 class=" par">Closing Balance</h6></div>
+                <div class="col-sm-3 m-0 p-0 head"><p class=" ABC">ABC Limited </br>For 1-Apr-22</br></p></div>
+        </div>
 
-            <div class="row m-0" style="border-bottom: 1px solid rgba(128, 128, 128, 0.6)">
-                <div class="col-sm-6 m-0 p-0 head" ><h5 class=" par">particulars</h6></div>
-                    <div class="col-sm-6 m-0 p-0 head"><p class=" ABC">ABC Limited </br>For 1-Apr-22 </p></div>
-            </div>
 
 
-            <table class="table " style="border: 1px solid rgba(128, 128, 128, 0.6)">
+            <table class="table " border="1px" style="border: 1px solid rgba(128, 128, 128, 0.6)">
                 <thead>
                   <tr>
                     <th scope="col"></th>
@@ -35,7 +39,7 @@
                 <tbody>
                 {% for p in std %}
                   <tr>
-                    <td class="table_row"><a href="{% url 'item_list' p.id %}">{{p.name}}</a></td>
+                    <td class="table_row"><a class="name" href="{% url 'item_list' p.id %}">{{p.name}}</a></td>
                     <td></td>
                     <td></td>
                     <td></td>

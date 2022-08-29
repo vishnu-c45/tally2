@@ -56,4 +56,41 @@ class payhead_crt(models.Model):
     currency_ledger=models.CharField(max_length=100,null=True)
     calculation_type=models.CharField(max_length=100,null=True)
     attendance_type=models.CharField(max_length=100,null=True)
-    production_type=models.CharField(max_length=100,null=True)    
+    production_type=models.CharField(max_length=100,null=True)   
+    
+    
+    
+    
+
+class create_payhead(models.Model):
+    name=models.CharField(max_length=225)
+    alias=models.CharField(max_length=225)
+    pay_type=models.CharField(max_length=225)
+    income_type=models.CharField(max_length=225)
+    under=models.CharField(max_length=225)
+    affect_net=models.CharField(max_length=225)
+    payslip=models.CharField(max_length=225)
+    calculation_of_gratuity=models.CharField(max_length=225)
+    cal_type=models.CharField(max_length=225)
+    calculation_period=models.CharField(max_length=225)
+    leave_withpay=models.CharField(max_length=225)
+    leave_with_out_pay=models.CharField(max_length=225)
+    production_type=models.CharField(max_length=225)
+    opening_balance=models.CharField(max_length=225)
+    compute=models.CharField(max_length=225,default="Null")
+    effective_from=models.CharField(max_length=225,default="NULL")
+    amount_greater=models.CharField(max_length=225,default="NULL")
+    amount_upto=models.CharField(max_length=225,default="NULL")
+    slab_type=models.CharField(max_length=225,default="NULL")
+    value=models.CharField(max_length=225,default="NULL")
+    Rounding_Method =models.CharField(max_length=225,default="Null",blank=True)
+    Round_limit = models.CharField(max_length=22,default="Null",blank=True)
+    days_of_months=models.CharField(max_length=225)
+    number_of_months_from=models.CharField(max_length=225)
+    to=models.CharField(max_length=225)
+    calculation_per_year=models.CharField(max_length=225)
+
+
+
+
+     

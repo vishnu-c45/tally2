@@ -5,12 +5,17 @@
 {% block body %}
 
 <style type="text/css">
-
+    
 
     .b1{
         height: 600px;
         
         
+    }
+    .open{
+        
+        float: right;
+
     }
     
     .head{
@@ -56,6 +61,7 @@
         padding: 10px;
         margin-left: -60px;
     }
+
     </style>
 
 
@@ -87,12 +93,18 @@
             </div>
 
             <ul class="ul" style="margin-top: 50px;">
+                
                
+                
+
+
                 {% for p in std %}
                 
-                <li class="list2">{{p.name}}</li>
+                <li class="list2">{{p.name}} <i class="open">{{p.opening_balance}}</i></li>
+
+                {% endfor  %}
                
-                {% endfor %}
+           
 
                
                

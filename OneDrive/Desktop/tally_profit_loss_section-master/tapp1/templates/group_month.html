@@ -1,0 +1,153 @@
+
+{% extends 'base.html' %}
+
+
+{% block body %}
+
+<style type="text/css">
+
+
+    .b1{
+        height: 600px;
+        
+    }
+    
+    .head{
+        border-bottom: 1px solid;
+        /* border-bottom: 1px solid; */
+    
+    }
+    
+    .par{
+        letter-spacing: 2px;
+     
+        padding: 15px;
+    
+    }
+    .ul{
+       
+    
+        letter-spacing: 2px;
+        font-size: medium;
+    }
+    .list2{
+        margin: 4px;
+        list-style-type: none;
+    }
+    .list2:hover{
+        background-color: darkgoldenrod;
+    }
+    
+    .ABC{
+    
+        font-size: small;
+        padding-right: 25px;
+        float: right;
+        padding-top: 10px;
+        font-weight: 700;
+    
+    
+    }
+    .total{
+        padding: 10px;
+        margin-left: -60px;
+    }
+    </style>
+
+
+
+
+
+
+<div class="container-fluid "  style="border: 1px solid;">
+    <div class="row">
+        <div class="col-sm-12 m-0 p-0 b1 " style="border-right: 1px solid;" >
+           
+
+            <div class="row ml-0" style="border-bottom: 1px solid; margin: 0px;">
+                <div class="col-sm-8 m-0 p-0 head" ><h4 class=" par" style="margin-top: 20px;margin-left: 40px; ">particulars</h4></div>
+                    <div class="col-sm-4 m-0 p-0 head" style="border-left: 1px solid; "><p class=" ABC" style="margin-top: 20px;"><center>ABC Limited </br>For 1-Apr-22 </center></p>
+                        
+                <div class="row" style="border-top: 1px solid; margin: 0px;">
+                    <div class="col-sm-6 m-0 p-0 " ><p class="ABC"><h6 style="margin-left: 100px;">Opening Balance</h6></p></div></div>
+                    <div class="row" style="border-top: 1px solid; margin: 0px;">
+                        <div class="col-sm-3 m-0 p-0 " ><p class="ABC"><h6 style="margin-left: 50px;">Debit</h6></p></div>
+                        <div class="col-sm-3 m-0 p-0 " style="border-left: 1px solid;"><p class="ABC"><h6 style="margin-left: 50px;">Credit</h6></p></div></div>
+                        
+                    
+                    
+                
+                    </div>
+                    
+
+            </div>
+
+            <ul class="ul" style="margin-top: 30px;">
+               
+               
+                
+                <div class="row list2" >
+                <div class="col-sm-6 m-0 p-0" style="margin-top: -10px;"><li class="list2"><a href="#">Opening balance</a></li></div>
+                <div class="col-sm-6 m-0 p-0 "><li class="list2" style="margin-left: 500px;">{{p.opening_balance}}.00 Dr</li></div></div>
+               
+                <div class="row list2">
+                    <div class="col-sm-6 m-0 p-0" ><li class="list2" style="margin-top: -2px;"><a href="#">April</a></li></div>
+                    <div class="col-sm-6 m-0 p-0 "><li class="list2" style="margin-left: 500px;margin-top: -2px;">{{p.opening_balance}}.00 Dr</li></div></div>
+                   
+                    <div class="row list2">
+                        <div class="col-sm-6 m-0 p-0"><li class="list2" style="margin-top: -2px;"><a href="#">May</a></li></div></div>
+                        <div class="row list2">
+                            <div class="col-sm-6 m-0 p-0"><li class="list2" style="margin-top: -2px;"><a href="#">June</a></li></div></div>
+                            <div class="row list2">
+                                <div class="col-sm-6 m-0 p-0"><li class="list2" style="margin-top: -2px;"><a href="#">Julay</a></li></div></div>
+                                <div class="row list2">
+                                    <div class="col-sm-6 m-0 p-0"><li class="list2" style="margin-top: -2px;"><a href="#">August</a></li></div></div>
+                                    <div class="row list2">
+                                        <div class="col-sm-6 m-0 p-0"><li class="list2" style="margin-top: -2px;"><a href="#">September</a></li></div></div>
+                                        <div class="row list2">
+                                            <div class="col-sm-6 m-0 p-0"><li class="list2" style="margin-top: -2px;"><a href="#">October</a></li></div></div>
+                                            <div class="row list2">
+                                                <div class="col-sm-6 m-0 p-0"><li class="list2" style="margin-top: -2px;"><a href="#">November</a></li></div></div>
+                                                <div class="row list2">
+                                                    <div class="col-sm-6 m-0 p-0"><li class="list2" style="margin-top: -2px;"><a href="#">December</a></li></div></div>
+                                                    <div class="row list2">
+                                                        <div class="col-sm-6 m-0 p-0"><li class="list2" style="margin-top: -2px;"><a href="#">January</a></li></div></div>
+                                                        <div class="row list2">
+                                                            <div class="col-sm-6 m-0 p-0"><li class="list2" style="margin-top: -2px;"><a href="#">February</a></li></div></div>
+                                                            <div class="row list2">
+                                                                <div class="col-sm-6 m-0 p-0"><li class="list2" style="margin-top: -2px;"><a href="#">March</a></li></div></div>
+                                                                
+               
+               
+               
+                
+            </ul>
+
+           
+
+
+          
+            
+        </div>
+
+       
+
+       
+
+
+
+        <div class="col-sm-12 m-0 p-0  " style="border-right: 1px solid; border-top: 1px solid;" >
+           
+
+            <div class="row ml-2" style="margin-top: 15px;margin-bottom: 15px; font-size: 18px;">
+                <div class="col-sm-11 m-0 p-0 " ><a style="margin-left: 30px;">Grand Total</a></div>
+                <div class="col-sm-1 m-0 p-0 " ><a class="total" >1000.00</a></div>
+                   
+            </div>
+
+            
+
+          
+            
+        </div>
+        {% endblock %} 
