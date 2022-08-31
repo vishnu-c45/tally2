@@ -11,5 +11,8 @@ urlpatterns = [
     path('items/<int:pk>',views.item_list,name='item_list'),
     path('payhead_list',views.payhead_list,name='payhead_list'),
     path('ledger',views.ledger,name='ledger'),
+    path('save_ledger',views.save_ledger,name='save_ledger'),
+    path('sales',views.sales,name='sales'),
+    path('indirect',views.indirect,name='indirect'),
   
 ]
