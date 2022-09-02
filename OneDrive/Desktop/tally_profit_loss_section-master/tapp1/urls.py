@@ -14,5 +14,10 @@ urlpatterns = [
     path('save_ledger',views.save_ledger,name='save_ledger'),
     path('sales',views.sales,name='sales'),
     path('indirect',views.indirect,name='indirect'),
+    path('grp_month/<int:pk>',views.grp_month,name='grp_month'),
+    path('sales_month/<int:pk>',views.sales_month,name='sales_month'),
+    path('payhead/<int:pk>',views.payhead_month,name='payhead_month'),
+    path('stock_month/<int:pk>',views.stock_month,name='stock_month'),
+    path('voucher/<int:pk>',views.pay_voucher,name='pay_voucher'),
   
 ]

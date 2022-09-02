@@ -21,6 +21,10 @@
 .head{
     text-align: center;
 }
+.total1{
+  text-align: right;
+  margin-left: 400px;
+}
 </style>
 
 
@@ -49,8 +53,8 @@
                 <tbody>
                 {% for p in std %}
                   <tr>
-                    <td class="table_row"><a class="m-3" href="">{{p.name}}</a></td>
-                    <td  class="table_row">{{p.quantity}} jk</td>
+                    <td class="table_row"><a class="m-3" href="{% url 'stock_month' p.id %}">{{p.name}}</a></td>
+                    <td  class="table_row">{{p.quantity}} </td>
                     <td  class="table_row">{{p.rate}}</td>
                     <td  class="table_row">{{p.value}}</td>
                   </tr>
@@ -68,6 +72,7 @@
 
             <div class="row m-0" >
                 <div class="col-sm-6 m-0 p-0 " ><a class="total">Grand Total</a></div>
+                <div class="col-sm-6 m-0 p-0 " ><a class="total1">{{total}}.00</a></div>
                    
             </div>
 
