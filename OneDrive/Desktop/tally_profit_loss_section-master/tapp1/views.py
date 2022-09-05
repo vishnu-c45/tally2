@@ -17,6 +17,10 @@ def pay_voucher(request,pk):
     std=create_payhead.objects.get(id=pk)
     return render(request,'payhead_voucher.html',{'std':std})
 
+def stock_voucher(request,pk):
+    std=group_summary.objects.get(id=pk)
+    return render(request,'stock_voucher.html',{'std':std})
+
 
 def profit(request):
     balance=Ledger.objects.all()
@@ -82,6 +86,25 @@ def  payhead_list(request):
     
     return render(request,'payhead_items.html',{'std':std,'stm':stm,'total':total,'total_d':total_d}) 
 
+
+
+def direct_exprenses(request):
+    std=create_payhead.objects.filter(under='Direct Expenses')
+    stm=Ledger.objects.filter(group_under='Direct Expenses')
+    balance=create_payhead.objects.all()
+    balance_le=Ledger.objects.all()
+    total=0
+    total_d=0
+    for i in balance:
+        if(i.under=='Direct Expenses'):
+            total+=int(i.opening_balance)
+    for p in balance_le:
+         if((p.group_under=='Direct Expenses') &(p.ledger_cr_db=='Cr')):
+             total+=int(p.ledger_opening_bal) 
+         elif((p.group_under=='Direct Expenses') &(p.ledger_cr_db=='Dr')):
+             total_d+=int(p.ledger_opening_bal) 
+    return render(request,'direct_expenses.html',{'std':std,'stm':stm,'total':total,'total_d':total_d}) 
+
 def sales(request):
     std=Ledger.objects.filter(group_under='Sales_Account')
     balance=Ledger.objects.all()
@@ -94,6 +117,18 @@ def sales(request):
             total_d+=int(i.ledger_opening_bal) 
                  
     return render(request,'sales_accounts.html',{'std':std,'total':total,'total_d':total_d})
+
+def purchase(request):
+    std=Ledger.objects.filter(group_under='Purchase_Account')
+    balance=Ledger.objects.all()
+    total=0
+    total_d=0
+    for i in balance:
+        if ((i.group_under=='Purchase_Account') &(i.ledger_cr_db=='Cr')):
+             total+=int(i.ledger_opening_bal) 
+        elif((i.group_under=='Purchase_Account') &(i.ledger_cr_db=='Dr')):
+            total_d+=int(i.ledger_opening_bal) 
+    return render(request,'purchase_list.html',{'std':std,'total':total,'total_d':total_d})
 
 def sales_month(request,pk):
     std=Ledger.objects.get(id=pk)

@@ -26,7 +26,7 @@
                 <div class="row  " style="height: 50px;">
                 <div class="col ">
                     <h6>
-                    <span class=" d-flex justify-content-start" style="margin-top: 8px;"> Ledger : &nbsp;<strong>{{std.ledger_name}} </strong> </span>
+                    <span class=" d-flex justify-content-start" style="margin-top: 8px;"> Stock item : &nbsp;<strong>{{std.name}} </strong> </span>
                     <span class="d-flex  justify-content-end " style="margin-top: -15px;"> 1-Apr-22 to 30-Apr-22</span>
                 </h6>
                 </div>
@@ -39,10 +39,11 @@
                           <th >Particulars</th>
                           <th >Vch Type</th>
                           <th style="text-align: right ;">Vch No.</th>
-                          <th style="text-align: right ;">Debit</th>
-                          <th style="text-align: right ;">Credit</th>
+                          <th  style="text-align: center ;">Quntity</th>
+                          <th style="text-align: center ;">Value</th>
                           
                         </tr>
+                        
                     </thead>
 
                     <tbody >
@@ -66,20 +67,18 @@
 
                   <div class="">
                     
-                    <tr class="">
+                    {% comment %} <tr class="">
                         <td colspan="4" style="text-align: right;"> Opening Balance : <br>
                             Current Total :</td>
                            
                     
                             <td style="text-align: right;">
-                            {% if std.ledger_cr_db == 'Dr' %}
+
                                 <strong></strong>
 
                                 <br>
-                                <strong>{{ std.ledger_opening_bal }}</strong>
-                                <td></td>
-                            {% elif std.ledger_cr_db == 'Cr' %}
-                           
+                                <strong></strong>
+                         
                             </td>
                             <td style="text-align: right;" id=""><strong></strong><br>
                                 <strong>{{ std.ledger_opening_bal }}</strong></td>
@@ -97,24 +96,23 @@
                                 <!-- <td style="text-align: right;" id=""><strong>{{i.ledger_opening_bal}}</strong><br>
                                     <strong>{{total_credit}}</strong></td> -->
     
-                           {% endif %}       
+                                  
    
                         
-                    </tr>
+                    </tr> {% endcomment %}
                     
                     <tr>
-                        <td colspan="4" style="text-align: right;"><strong>Closing Balance : </strong>  
+                        <td colspan="4" style="text-align: right;"><strong>Total as per 'Default' valuation  : </strong>  
                         </td>
                           
-                        {% if std.ledger_cr_db == 'Cr' %}
-                            <td style="text-align: right;"><strong></strong></td>
-                            <td style="text-align: right;">{{ std.ledger_opening_bal }}<strong></strong></td>
                             
-                        {% elif std.ledger_cr_db == 'Dr' %}   
-                            <td style="text-align: right;">{{ std.ledger_opening_bal }}<strong></strong></td>
-                            <td style="text-align: right;"><strong></strong></td>
+                            <td style="text-align: center;">{{std.quantity}}<strong></strong></td>
+                            <td style="text-align: center;">{{std.value}}<strong></strong></td>
                             
-                        {% endif %}
+                            <!-- <td style="text-align: right;"><strong></strong></td>
+                            <td style="text-align: right;"><strong></strong></td> -->
+                            
+                        
                     </tr>
                   </div>
 

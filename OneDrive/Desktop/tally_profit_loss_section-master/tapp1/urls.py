@@ -19,5 +19,8 @@ urlpatterns = [
     path('payhead/<int:pk>',views.payhead_month,name='payhead_month'),
     path('stock_month/<int:pk>',views.stock_month,name='stock_month'),
     path('voucher/<int:pk>',views.pay_voucher,name='pay_voucher'),
+    path('stock_voucher/<int:pk>',views.stock_voucher,name='stock_voucher'),
+    path('purchase',views.purchase,name='purchase'),
+    path('direct_exp',views.direct_exprenses,name='direct_exprenses'),
   
 ]
