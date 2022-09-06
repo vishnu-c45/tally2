@@ -31,6 +31,9 @@ def profit(request):
     total_direct=0
     total=0
     total_income=0
+    total_purch=0
+    total_direct_exp=0
+    total_indirect=0
     for i in balance:
         if(i.group_under=='Sales_Account'):
             total+=int(i.ledger_opening_bal)
@@ -51,8 +54,35 @@ def profit(request):
             total_direct+=int(p.ledger_opening_bal) 
     
     for k in  balance_group:
-        total_grp+=int(k.value)        
-    return render(request,'profit.html',{'total':total,'total_income':total_income,'total_direct':total_direct,'total_grp':total_grp}) 
+        total_grp+=int(k.value)
+        
+    #second particular 
+    
+    for i in balance:
+        if(i.group_under=='Purchase_Account'):
+            total_purch+=int(i.ledger_opening_bal)
+    
+    # indirect expenses total
+           
+    for i in balance_py:
+        if(i.under=='Direct Expenses'):
+            total_direct_exp+=int(i.opening_balance)    
+    
+    for p in balance_le:
+        if(p.group_under=='Direct Expenses'):
+            total_direct_exp+=int(p.ledger_opening_bal) 
+            
+    #indirect expenses total   
+    
+    for i in balance_py:
+        if(i.under=='Indirect Expenses'):
+            total_indirect+=int(i.opening_balance)
+    for p in balance_le:
+         if(p.group_under=='Expences_Indirect'):
+            total_indirect+=int(p.ledger_opening_bal)    
+            
+                   
+    return render(request,'profit.html',{'total':total,'total_income':total_income,'total_direct':total_direct,'total_grp':total_grp,'total_purch':total_purch,'total_direct_exp':total_direct_exp,'total_indirect':total_indirect}) 
 
 
 def stockgroup(request):
@@ -160,6 +190,27 @@ def indirect(request):
     
     
     return render(request,'indirect_income.html',{'std':std,'stm':stm,'total':total,'total_d':total_d})
+
+
+
+def indirect_expenses(request):
+    std=create_payhead.objects.filter(under='Indirect Expenses')
+    stm=Ledger.objects.filter(group_under='Expences_Indirect')
+    balance=create_payhead.objects.all()
+    balance_le=Ledger.objects.all()
+    total=0
+    total_d=0
+    for i in balance:
+        if(i.under=='Indirect Expenses'):
+            total+=int(i.opening_balance)
+    for p in balance_le:
+         if((p.group_under=='Expences_Indirect') &(p.ledger_cr_db=='Cr')):
+             total+=int(p.ledger_opening_bal) 
+         elif((p.group_under=='Expences_Indirect') &(p.ledger_cr_db=='Dr')):
+             total_d+=int(p.ledger_opening_bal) 
+    
+    
+    return render(request,'indirect_expences.html',{'std':std,'stm':stm,'total':total,'total_d':total_d})
 
 
 

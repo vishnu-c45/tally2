@@ -22,5 +22,6 @@ urlpatterns = [
     path('stock_voucher/<int:pk>',views.stock_voucher,name='stock_voucher'),
     path('purchase',views.purchase,name='purchase'),
     path('direct_exp',views.direct_exprenses,name='direct_exprenses'),
+    path('indirect_exp',views.indirect_expenses,name='indirect_expenses'),
   
 ]
