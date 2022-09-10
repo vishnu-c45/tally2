@@ -12,11 +12,16 @@
         font-weight: 800;
         letter-spacing: 2px;
     }
-    .hide{
-        display: none;
-        justify-content: center;
-        align-items:center;
+    #loss2{
+        visibility: hidden;
+       
+        
     }
+    #loss{
+        visibility: hidden;
+        
+    }
+    
 </style>
 
 
@@ -30,7 +35,7 @@
                     <div class="col-sm-6 m-0 p-0 head"><p class=" ABC">ABC Limited </br>For 1-Apr-22 </p></div>
             </div>
 
-            <ul class="ul">
+            <ul class="ul" id="loss3" >
 
                 <li class="list2"><a href="purchase">Purchase Account</a><i id="purch" class="float-right">{{total_purch}}</i></li>
                 <li class="list2"><a href="{% url 'direct_exprenses' %}" >Direct Expenses</a><i id="expenses" class="float-right">{{total_direct_exp}}</i></li>
@@ -47,15 +52,15 @@
             </ul>
 
  <!-- gross profit loss method -->
-             <ul class="hide" id="">
+             <ul  id="loss">
 
                 <li class="list2"><a href="purchase">Purchase Account</a><i id="purch" class="float-right">{{total_purch}}</i></li>
                 <li class="list2"><a href="{% url 'direct_exprenses' %}" >Direct Expenses</a><i id="expenses" class="float-right">{{total_direct_exp}}</i></li>
                 <li class="list2"><a href="stockgroup" >Opening Stock</a><i  class="float-right">{{total_grp}}</i></li>
                
-                <li class="list2" style="border-top:1px solid ;"><i id="total2" class="float-right" ></i></li>
+                <li class="list2" style="border-top:1px solid ;"><i id="tot" class="float-right" ></i></li>
                 
-                <li class="list2 mt-5 "><a  href="#" >Gross profit</a><i id="gross" class="float-right"></i></li>
+                <li class="list2 mt-5 "><a  href="#" >Gross Loss</a><i id="gross_loss2" class="float-right"></i></li>
                 <li class="list2"><a href="{% url 'indirect_expenses' %}" >Indirect Expenses</a><i id="indirect_exp" class="float-right">{{total_indirect}}</i></li>
                
 
@@ -76,7 +81,7 @@
             
 
 
-                <ul class="ul">
+                <ul class="ul" id="loss4" >
                     <li class="list2"><a href="sales">Sales Acount</a><i id="sales" class="float-right">{{total}}</i></li>
                     <li class="list2"><a href="payhead_list" >Direct Income</a><i id="direct" class="float-right">{{total_direct}}</i></li>
                     <li class="list2"><a href="stockgroup" >Closing stock</a><i id="stock" class="float-right">{{total_grp}}</i></li>
@@ -91,16 +96,16 @@
          
             <!-- gross profit loss method -->
                
-                <ul class="hide">
+                <ul  id="loss2">
 
                     <li class="list2"><a href="sales">Sales Acount</a><i id="sales" class="float-right">{{total}}</i></li>
                     <li class="list2"><a href="payhead_list" >Direct Income</a><i id="direct" class="float-right">{{total_direct}}</i></li>
                     <li class="list2"><a href="stockgroup" >Closing stock</a><i id="stock" class="float-right">{{total_grp}}</i></li>
-                    <li class="list2 "><a href="#" >Gross Loss</a><i class="float-right" id="gross_profit"></i></li>
+                    <li class="list2 "><a href="#" >Gross Loss</a><i class="float-right" id="gross_loss"></i></li>
                     <li class="list2" style="border-top:1px solid ;"><i class="float-right" id="total"></i></li>
                     
-                    <li class="list2 mt-5"><a href="indirect" >Indirect Incomes</a><i id="indirect" class="float-right">{{total_income}}</i></li>
-                    <li class="list2">Net Loss<i id="net_profit" class="float-right"></i></li>
+                    <li class="list2 mt-5"><a href="indirect" >Indirect Incomes</a><i id="indirect_inc" class="float-right">{{total_income}}</i></li>
+                    <li class="list2"><a  href="#" >Net Loss</a><i id="loss2" class="float-right"></i></li>
 
                 </ul>
 
@@ -171,13 +176,20 @@
         let e1=parseInt(i);
         let e2=parseInt(j);
 
-        let=e=e1+e2+d3;
+        var e=e1+e2+d3;
         console.log(e)
         
        
        
 
         if (d>e){
+
+            document.getElementById('loss3').style.visibility="visible";
+            document.getElementById('loss4').style.visibility="visible";
+
+            document.getElementById('loss').style.visibility="hidden";
+            document.getElementById('loss2').style.visibility="hidden";
+
 
             let f=d-e;
             console.log(f)
@@ -202,7 +214,7 @@
 
             //total particular exp
 
-            let total_particular_exp=g1+net_profit;
+            var total_particular_exp=g1+net_profit;
             document.getElementById('total_profit2').innerHTML=total_particular_exp;
 
             
@@ -214,6 +226,28 @@
 
         else if(d<e){
 
+            document.getElementById('loss').style.visibility="visible";
+            document.getElementById('loss2').style.visibility="visible";
+
+            document.getElementById('loss3').style.visibility="hidden";
+            document.getElementById('loss4').style.visibility="hidden";
+
+
+
+            document.getElementById('tot').innerHTML=e;
+
+            let p=e-d;
+            console.log(p);
+            document.getElementById('gross_loss').innerHTML=p;
+            document.getElementById('gross_loss2').innerHTML=p;
+
+            let indirect_icomes=document.getElementById('indirect_inc').innerHTML;
+            let g3=parseInt(indirect_incomes);
+
+            let net_loss=p-g3;
+            document.getElementById('loss2').innerHTML=net_loss;
+            
+            
 
 
         }
