@@ -1,7 +1,7 @@
 from functools import total_ordering
 from pickle import FALSE
 from django.shortcuts import render,redirect
-from .models import CreateStockGrp,group_summary,payhead_crt,create_payhead,Ledger,ledger_tax,Ledger_Banking_Details,Ledger_Mailing_Address,Ledger_Rounding,Ledger_Satutory,Ledger_sundry,Ledger_Tax_Register
+from .models import CreateStockGrp,group_summary,payhead_crt,create_payhead,Ledger,ledger_tax,Ledger_Banking_Details,Ledger_Mailing_Address,Ledger_Rounding,Ledger_Satutory,Ledger_sundry,Ledger_Tax_Register,add_voucher
 
 # Create your views here.
 
@@ -19,7 +19,31 @@ def pay_voucher(request,pk):
 
 def stock_voucher(request,pk):
     std=group_summary.objects.get(id=pk)
-    return render(request,'stock_voucher.html',{'std':std})
+    vouch=add_voucher.objects.all()
+    total_value=0
+    total_qunity=0
+    total_val=int(std.value)
+    total_qun=int(std.quantity)
+    for i in vouch:
+        if (i.voucher_type=='sales'):
+            total_value +=int(i.value)
+            total_qunity+=int(i.quntity)
+        elif (i.voucher_type=='purchase'):
+            total_val+=int(i.value) 
+            total_qun+=int(i.quntity)
+    closing_qun=total_qun-total_qunity  
+    closing_val=total_val-total_value      
+    context={
+        'std':std,
+        'vouch':vouch,
+        'total_sales_value':total_value,
+        'total_sales_quntity':total_qunity, 
+        'total_purchase_value':total_val,
+        'total_purchase_quntity':total_qun,
+        'closing_qun':closing_qun,
+        'closing_val':closing_val,
+        }        
+    return render(request,'stock_voucher.html',context)
 
 
 def profit(request):

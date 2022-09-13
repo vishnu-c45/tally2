@@ -165,6 +165,18 @@ class Ledger_sundry(models.Model):
     maintain_balance_bill_by_bill =models.CharField(max_length=225,default="Null",blank=True)
     Default_credit_period=models.CharField(max_length=225,default="Null",blank=True)
     Check_for_credit_days=models.CharField(max_length=225,default="Null",blank=True)    
+    
+class add_voucher(models.Model):
+    date=models.CharField(max_length=225)
+    particular=models.CharField(max_length=225)
+    voucher_type=models.CharField(max_length=225)
+    voucher_number=models.CharField(max_length=225)
+    quntity=models.CharField(max_length=225)
+    value=models.CharField(max_length=225)   
+        
+    def __str__(self):
+        return self.particular    
+    
 
 
 
