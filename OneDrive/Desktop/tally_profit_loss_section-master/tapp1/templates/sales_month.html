@@ -67,7 +67,7 @@ cursor:pointer;
                                 <td><i>Opening Balance</i><i class="float-right "></i></td>
                                 <td></td>
                                 <td></td>
-                                <td style="text-align: end;"><strong>{{std.ledger_opening_bal}}</strong></td>
+                                <td style="text-align: center;"><strong>{{std.ledger_opening_bal}}</strong></td>
 
                             </tr>
                             
@@ -89,7 +89,7 @@ cursor:pointer;
                                  
                                 <td style="text-align: end;"><strong></strong></td>
                                 <td style="text-align: end;"><strong></strong></td>
-                                <td style="text-align: end;"><strong>{{std.ledger_opening_bal}}</strong></td>
+                                <td style="text-align: end;"><strong></strong></td>
                                     
                                             
                                 
@@ -118,9 +118,9 @@ cursor:pointer;
                            
                             <tr class="table-row" >
                                 <td><a href="{% url 'grp_month' std.id %}">April</a></td>
-                                <td></td>
-                                <td></td>
-                                <td style="text-align: end;"><strong>{{std.ledger_opening_bal}}</strong></td>
+                                <td style="text-align: center;">{{total_debit}}</td>
+                                <td style="text-align: center;">{{total_credit}}</td>
+                                <td style="text-align: center;"><strong>{{opening_balance}}</strong></td>
 
                             </tr>
 
@@ -207,8 +207,8 @@ cursor:pointer;
                                 <th  ><h6 class="d-flex align-items-sm-start par p-1 py-1 foot" style="margin-left: 20px;">Grand Total</h6></th>
                                 
                                 <th  style="text-align: end;">{{total_debit}}</th>
-                                <th  style="text-align: end;"></th>
-                                <th  style="text-align: end;">{{std.ledger_opening_bal}}</th>
+                                <th  style="text-align: end;">{{total_credit}}</th>
+                                <th  style="text-align: end;">{{opening_balance}}</th>
                                 
                             </tr>
 

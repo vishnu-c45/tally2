@@ -113,11 +113,11 @@
                 {% for t in std %}
                
                  {% if t.ledger_cr_db == "Cr" %}
-                   <li class="list2"><a  href="{% url 'sales_month' t.id %}">{{t.ledger_name}}</a><i class="open">{{t.ledger_opening_bal}}.00</i></li>
+                   <li class="list2"><a  href="{% url 'sales_month' t.id %}">{{t.ledger_name}}</a><i class="open">{{t.ledger_type}}.00</i></li>
                    <!-- <li class="list2">{{t.ledger_name}} <i class="open">{{t.ledger_opening_bal}}</i></li> -->
                   {% else %}
                   <!-- <li class="list2">{{t.ledger_name}} <i class="open2">{{t.ledger_opening_bal}}.00</i></li> -->
-                  <li class="list2"><a href="{% url 'sales_month' t.id %}">{{t.ledger_name}}</a><i class="open2">{{t.ledger_opening_bal}}.00</i></li>
+                  <li class="list2"><a href="{% url 'sales_month' t.id %}">{{t.ledger_name}}</a><i class="open2">{{t.ledger_type}}.00</i></li>
                   {% endif %}
 
                 {% endfor  %}

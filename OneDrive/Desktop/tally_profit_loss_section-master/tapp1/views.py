@@ -17,7 +17,34 @@ def grp_month(request,pk):
     for i in vouch2:
         total_debit+=int(i.debit)
         total_credit+=int(i.credit)
-    return render(request,'group_month.html',{'std':std,'vouch2':vouch2,'total_debit':total_debit})
+        
+    opening_balance=int(std.ledger_opening_bal)+total_credit-total_debit
+    if opening_balance>0 :
+        std.ledger_type=opening_balance
+        std.save()
+        
+    else :
+        std.provide_banking_details=opening_balance*-1
+        std.save()
+            
+    return render(request,'group_month.html',{'std':std,'vouch2':vouch2,'total_debit':total_debit,'total_credit':total_credit,'opening_balance':opening_balance})
+
+def sales_month(request,pk):
+    std=Ledger.objects.get(id=pk)
+    
+    vouch2=add_voucher2.objects.all()
+    total_debit=0
+    total_credit=0
+    for i in vouch2:
+        total_debit+=int(i.debit)
+        total_credit+=int(i.credit)
+        
+    opening_balance=int(std.ledger_opening_bal)+total_credit-total_debit
+    
+    # std.ledger_type=opening_balance
+    # std.save()
+    
+    return render(request,'sales_month.html',{'std':std,'total_debit':total_debit,'total_credit':total_credit,'opening_balance':opening_balance})
 
 def pay_voucher(request,pk):
     std=create_payhead.objects.get(id=pk)
@@ -205,9 +232,7 @@ def purchase(request):
             total_d+=int(i.ledger_opening_bal) 
     return render(request,'purchase_list.html',{'std':std,'total':total,'total_d':total_d})
 
-def sales_month(request,pk):
-    std=Ledger.objects.get(id=pk)
-    return render(request,'sales_month.html',{'std':std})
+
 
 def payhead_month(request,pk):
     std=create_payhead.objects.get(id=pk)

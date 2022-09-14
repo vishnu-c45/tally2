@@ -1,72 +1,142 @@
 {% extends 'base.html' %}
 
+
 {% block body %}
 
-<style>
-  
-.table_row:hover{
-  background-color: darkgoldenrod;
-}
-
-.name{
-  margin-right: -53.5px;
-}
-</style>
-
-
-<div class="container-fluid "style=" border: 1px solid rgba(128, 128, 128, 0.6);background-color:rgba(0,0,0,.4);" >
+<head>
     
-    <div class="row">
-        <div class="col-sm-12 m-0 p-0 b1 " style=" " >
-           
-          <div class="row m-0" style="border-bottom: 1px solid rgba(128, 128, 128, 0.6)">
-            <div class="col-sm-3 m-0 p-0 "style="border-right: 1px solid rgba(128, 128, 128, 0.6)" ><h5 class=" par">particulars</h6></div>
-                <div class="col-sm-3 m-0 pl-5 " ><h5 class=" par">Closing Balance</h6></div>
-                <div class="col-sm-3 m-0 p-0 head"><p class=" ABC">ABC Limited </br>For 1-Apr-22</br></p></div>
-        </div>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+    
+        
 
-
-
-            <table class="table "  style="border: 1px solid rgba(128, 128, 128, 0.6)">
-                <thead>
-                  <tr>
-                    <th scope="col"></th>
-                    <th scope="col">Quantity</th>
-                    <th scope="col">Rate</th>
-                    <th scope="col">Value</th>
-                  </tr>
-                </thead>
-                <tbody>
-                {% for p in std %}
-                  <tr>
-                    <td class="table_row"><a class="name" href="{% url 'item_list' p.id %}">{{p.name}}</a></td>
-                    <td></td>
-                    <td></td>
-                    <td>{{total}}</td>
-                  </tr>
-                {% endfor %}
-                  
-                </tbody>
-              </table>
-
-        </div>
-
-      
-
-        <div class="col-sm-12 m-0 p-0  "style="border-top: 1px solid rgba(128, 128, 128, 0.6)"  >
-           
-
-            <div class="row m-0" >
-                <div class="col-sm-6 m-0 p-0 " ><a class="total">Grand Total</a></div>
+    </script>
+    <style>
+        
+        
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="row d-flex " style="background-color: rgb(103, 175, 220);color:#fff;width:100%;margin: auto;">
+                    <div class="col "> Ledger Vouchers</div>
                    
+                </div>
+                <div class="row  " style="height: 50px;">
+                <div class="col ">
+                    <h6>
+                    <span class=" d-flex justify-content-start" style="margin-top: 8px;"> Ledger : &nbsp;<strong>{{std.ledger_name}} </strong> </span>
+                    <span class="d-flex  justify-content-end " style="margin-top: -15px;"> 1-Apr-22 to 30-Apr-22</span>
+                </h6>
+                </div>
             </div>
+                <div class="table-responsive">
+                    <table  class="table  " style="background-color: rgba(33,57,77,255);color:#fff;">
+                        <thead >
+                        <tr>
+                          <th style="text-align: center;">Date</th>
+                          <th >Particulars</th>
+                          <th >Vch Type</th>
+                          <th style="text-align: right ;">Vch No.</th>
+                          <th style="text-align: right ;">Debit</th>
+                          <th style="text-align: right ;">Credit</th>
+                          
+                        </tr>
+                    </thead>
 
+                    <tbody >
+                    {% for p in vouch2 %}
+                    <tr>
+                        <td style="text-align: center;">{{p.date}}</td>
+                        <td ><strong></strong>{{p.particular}}</td>
+                        <td><strong></strong>{{p.voucher_type}}</td>
+                        <td style="text-align: right ;">{{p.voucher_number}}</td>
+                        <td class="debit" style="text-align: right ;">{{p.debit}}<strong>
+                        
+                        <td style="text-align: right ;"><strong>{{p.credit}}</strong></td>
+
+                        
+
+
+                    </tr>
+                    {% endfor %}
+                 
+                
+
+
+                  <div class="">
+                    
+                    <tr class="">
+                        <td colspan="4" style="text-align: right;"> Opening Balance : <br>
+                            Current Total :</td>
+                           
+                    
+                            <td style="text-align: right;">
+                           
+                               <strong class="">{{ std.ledger_opening_bal }}</strong>
+
+                                <br>
+                                <strong>{{total_debit}}</strong>
+                                
+                                <td></td>
+                           
+                           
+                            </td>
+                           
+                            
+                          
+                             
+                               
+                              
+                           
+                        
+                    </tr>
+                    
+                    <tr>
+                        <td colspan="4" style="text-align: right;"><strong>Closing Balance : </strong>  
+                        </td>
+                          
+                        {% if std.ledger_cr_db == 'Cr' %}
+                            <td style="text-align: right;"><strong></strong></td>
+                            <td style="text-align: right;"><strong></strong></td>
+                            
+                        {% elif std.ledger_cr_db == 'Dr' %}   
+                            <td style="text-align: right;"><strong></strong></td>
+                            <td style="text-align: right;"><strong></strong></td>
+                            
+                        {% endif %}
+                    </tr>
+                  </div>
+
+
+              
+                       
+                    
+                      
+                    
+                    </tbody>
+
+
+
+
+                    
+
+                    </table>
+
+
+                  </div>
+
+              
+                  
+
+
+               
+
+
+
+            </div>
         </div>
-
-
     </div>
-</div>
-
-
 
 {% endblock %}
