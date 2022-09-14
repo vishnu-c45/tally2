@@ -5,3 +5,5 @@ from.models import *
 admin.site.register(CreateStockGrp)
 
 admin.site.register(add_voucher)
+
+admin.site.register(add_voucher2)

@@ -39,7 +39,7 @@
 
                 <li class="list2"><a href="purchase">Purchase Account</a><i id="purch" class="float-right">{{total_purch}}</i></li>
                 <li class="list2"><a href="{% url 'direct_exprenses' %}" >Direct Expenses</a><i id="expenses" class="float-right">{{total_direct_exp}}</i></li>
-                <li class="list2"><a href="stockgroup" >Opening Stock</a><i  class="float-right">{{total_grp}}</i></li>
+                <li class="list2"><a href="stock_group2" >Opening Stock</a><i  class="float-right">{{total_grp}}</i></li>
                 <li class="list2 "><a  href="#" >Gross profit</a><i id="gross" class="float-right"></i></li>
                 <li class="list2" style="border-top:1px solid ;"><i id="total2" class="float-right" ></i></li>
                 
@@ -56,7 +56,7 @@
 
                 <li class="list2"><a href="purchase">Purchase Account</a><i id="purch" class="float-right">{{total_purch}}</i></li>
                 <li class="list2"><a href="{% url 'direct_exprenses' %}" >Direct Expenses</a><i id="expenses" class="float-right">{{total_direct_exp}}</i></li>
-                <li class="list2"><a href="stockgroup" >Opening Stock</a><i  class="float-right">{{total_grp}}</i></li>
+                <li class="list2"><a href="stock_group2" >Opening Stock</a><i  class="float-right">{{total_grp}}</i></li>
                
                 <li class="list2" style="border-top:1px solid ;"><i id="tot" class="float-right" ></i></li>
                 
@@ -84,7 +84,7 @@
                 <ul class="ul" id="loss4" >
                     <li class="list2"><a href="sales">Sales Acount</a><i id="sales" class="float-right">{{total}}</i></li>
                     <li class="list2"><a href="payhead_list" >Direct Income</a><i id="direct" class="float-right">{{total_direct}}</i></li>
-                    <li class="list2"><a href="stockgroup" >Closing stock</a><i id="stock" class="float-right">{{total_grp}}</i></li>
+                    <li class="list2"><a href="stockgroup" >Closing stock</a><i id="stock" class="float-right">{{closing_value}}</i></li>
                     <li class="list2" style="border-top:1px solid ;"><i class="float-right" id="total"></i></li>
                     <li class="list2 mt-5"><a href="#" >Gross profit</a><i class="float-right" id="gross_profit"></i></li>
                     <li class="list2"><a href="indirect" >Indirect Incomes</a><i id="indirect" class="float-right">{{total_income}}</i></li>
@@ -100,7 +100,7 @@
 
                     <li class="list2"><a href="sales">Sales Acount</a><i id="sales" class="float-right">{{total}}</i></li>
                     <li class="list2"><a href="payhead_list" >Direct Income</a><i id="direct" class="float-right">{{total_direct}}</i></li>
-                    <li class="list2"><a href="stockgroup" >Closing stock</a><i id="stock" class="float-right">{{total_grp}}</i></li>
+                    <li class="list2"><a href="stockgroup" >Closing stock</a><i id="stock" class="float-right">{{closing_value}}</i></li>
                     <li class="list2 "><a href="#" >Gross Loss</a><i class="float-right" id="gross_loss"></i></li>
                     <li class="list2" style="border-top:1px solid ;"><i class="float-right" id="total"></i></li>
                     
@@ -209,7 +209,7 @@
             let indirect_exp=document.getElementById('indirect_exp').innerHTML;
             let g1=parseInt(indirect_exp);
     
-            let net_profit=f-g1;
+            let net_profit=total_profit-g1;
             document.getElementById('net_profit').innerHTML=net_profit;
 
             //total particular exp

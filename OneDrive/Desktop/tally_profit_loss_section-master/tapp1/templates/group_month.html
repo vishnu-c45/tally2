@@ -46,20 +46,21 @@
                     </thead>
 
                     <tbody >
-                    
+                    {% for p in vouch2 %}
                     <tr>
-                        <td style="text-align: center;">1-Apr-22</td>
-                        <td ><strong></strong>sbi</td>
-                        <td><strong></strong>payment</td>
-                        <td style="text-align: right ;">9</td>
-                        <td class="debit" style="text-align: right ;">800<strong>
+                        <td style="text-align: center;">{{p.date}}</td>
+                        <td ><strong></strong>{{p.particular}}</td>
+                        <td><strong></strong>{{p.voucher_type}}</td>
+                        <td style="text-align: right ;">{{p.voucher_number}}</td>
+                        <td class="debit" style="text-align: right ;">{{p.debit}}<strong>
                         
-                        <td style="text-align: right ;"><strong></strong></td>
+                        <td style="text-align: right ;"><strong>{{p.credit}}</strong></td>
 
                         
 
 
                     </tr>
+                    {% endfor %}
                  
                 
 
@@ -72,33 +73,23 @@
                            
                     
                             <td style="text-align: right;">
-                            {% if std.ledger_cr_db == 'Dr' %}
-                                <strong></strong>
+                           
+                               <strong class="">{{ std.ledger_opening_bal }}</strong>
 
                                 <br>
-                                <strong>{{ std.ledger_opening_bal }}</strong>
+                                <strong>{{total_debit}}</strong>
+                                
                                 <td></td>
-                            {% elif std.ledger_cr_db == 'Cr' %}
+                           
                            
                             </td>
-                            <td style="text-align: right;" id=""><strong></strong><br>
-                                <strong>{{ std.ledger_opening_bal }}</strong></td>
-
+                           
+                            
                           
                              
-                                <!-- <td style="text-align: right;">
-
-                                    <strong></strong>
-    
-                                    <br>
-                                    <strong>90</strong>
-       
-                                </td> -->
-                                <!-- <td style="text-align: right;" id=""><strong>{{i.ledger_opening_bal}}</strong><br>
-                                    <strong>{{total_credit}}</strong></td> -->
-    
-                           {% endif %}       
-   
+                               
+                              
+                           
                         
                     </tr>
                     
@@ -108,10 +99,10 @@
                           
                         {% if std.ledger_cr_db == 'Cr' %}
                             <td style="text-align: right;"><strong></strong></td>
-                            <td style="text-align: right;">1500<strong></strong></td>
+                            <td style="text-align: right;"><strong></strong></td>
                             
                         {% elif std.ledger_cr_db == 'Dr' %}   
-                            <td style="text-align: right;">800<strong></strong></td>
+                            <td style="text-align: right;"><strong></strong></td>
                             <td style="text-align: right;"><strong></strong></td>
                             
                         {% endif %}

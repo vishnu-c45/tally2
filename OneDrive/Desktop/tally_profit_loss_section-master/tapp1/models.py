@@ -177,6 +177,19 @@ class add_voucher(models.Model):
     def __str__(self):
         return self.particular    
     
+    
+
+class add_voucher2(models.Model):
+    date=models.CharField(max_length=225,default="Null",blank=True)
+    particular=models.CharField(max_length=225,default="Null",blank=True)
+    voucher_type=models.CharField(max_length=225,default="Null",blank=True)
+    voucher_number=models.CharField(max_length=225,default="Null",blank=True)
+    debit=models.CharField(max_length=225,default="Null",blank=True)
+    credit=models.CharField(max_length=225,default="Null",blank=True)
+
+    def _str_(self):
+        return self.particular    
+    
 
 
 

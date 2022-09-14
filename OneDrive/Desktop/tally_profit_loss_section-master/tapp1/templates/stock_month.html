@@ -33,8 +33,8 @@ cursor:pointer;
                 <div class="row d-flex " style="background-color: rgb(103, 175, 220);color:#fff;width:100%;margin: auto;">
                     <div class="col ">Ledger Monthly Summary</div>
                 </div>
-                <div class="table-responsive">
-                    <table class="table " style="background-color: rgba(33,57,77,255);color:#fff;">
+                <div class="table-responsive" >
+                    <table class="table" style="background-color: rgba(33,57,77,255);color:#fff;">
 
                         <thead>
 
@@ -77,10 +77,10 @@ cursor:pointer;
                                 <td><i>Opening Balance</i><i class="float-right "></i></td>
                                 <td></td>
                                 <td></td>
-                                <td style="text-align: end;"><strong>{{std.opening_balance}}</strong></td>
+                                <td style="text-align: end;"><strong></strong></td>
                                 <td></td>
-                                <td>89</td>
-                                <td>89</td>
+                                <td style="text-align: center;">{{std.quantity}} BTL</td>
+                                <td style="text-align: center;">{{std.value}}</td>
                                 
                                
 
@@ -142,13 +142,13 @@ cursor:pointer;
 
                            
                             <tr class="table-row" >
-                                <td><a href="{% url 'stock_voucher' std.id %}">April</a></td>
-                                <td ></td>
-                                <td></td>
-                                <td  style="text-align: center;"><strong>{{std.quantity}}</strong></td>
-                                <td  style="text-align: center;">{{std.value}}</td>
-                                <td></td>
-                                <td></td>
+                                <td ><a href="{% url 'stock_voucher' std.id %}">April</a></td>
+                                <td style="text-align: center;">{{total_purchase_quntity}} BTL</td>
+                                <td style="text-align: center;">{{total_purchase_value}}</td>
+                                <td  style="text-align: center;"><strong>{{total_sales_quntity}} BTL</strong></td>
+                                <td  style="text-align: center;">{{total_sales_value}}</td>
+                                <td  style="text-align: center;">{{closing_qun}} BTL</td>
+                                <td  style="text-align: center;">{{closing_val}}</td>
                                
                                 
 
@@ -267,14 +267,14 @@ cursor:pointer;
 
 
                             <tr class="table-row">
-                                <th  ><h6 class="d-flex align-items-sm-start par p-1 py-1 foot" style="margin-left: 20px;">Grand Total</h6></th>
+                                <th  ><h6 class="d-flex align-items-sm-start par p-1 py-1 foot" style="margin-left: 0px;">Grand Total</h6></th>
                                 
-                                <th  style="text-align: end;">{{total_debit}}</th>
-                                <th  style="text-align: end;"></th>
-                                <th  style="text-align: center;">{{std.quantity}}</th>
-                                <th style="text-align: center;"> {{std.value}}</th>
-                                <td></td>
-                                <td></td>
+                                <td style="text-align: center;">{{total_purchase_quntity}} BTL</td>
+                                <td style="text-align: center;">{{total_purchase_value}}</td>
+                                <td  style="text-align: center;"><strong>{{total_sales_quntity}} BTL</strong></td>
+                                <td  style="text-align: center;">{{total_sales_value}}</td>
+                                <td  style="text-align: center;">{{closing_qun}} BTL</td>
+                                <td  style="text-align: center;">{{closing_val}}</td>
                                 
                             </tr>
 

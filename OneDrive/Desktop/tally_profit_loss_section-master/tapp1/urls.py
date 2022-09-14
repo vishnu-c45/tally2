@@ -23,5 +23,6 @@ urlpatterns = [
     path('purchase',views.purchase,name='purchase'),
     path('direct_exp',views.direct_exprenses,name='direct_exprenses'),
     path('indirect_exp',views.indirect_expenses,name='indirect_expenses'),
-  
+    path('stock_group2',views.stock_group2,name='stock_group2'),
+    path('items_2/<int:pk>',views.items_2,name='items_2')
 ]

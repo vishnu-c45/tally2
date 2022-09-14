@@ -48,7 +48,7 @@ cursor:pointer;
                               <tr>
                                 <!-- <th colspan="2" class="text-center text-white" style="width: 23%;"><h6> <strong> Outwards </strong></h6></th>
                                 <th colspan="2" class="text-center text-white" style="width: 23%;"><h6> <strong> Outwards </strong></h6></th> -->
-                                <th colspan="3" class="text-center text-white " style="width:50%;"><h6> <strong>closing balance</strong></h6></th>
+                                <th colspan="3" class="text-center text-white " style="width:50%;"><h6> <strong>opening balance</strong></h6></th>
 
                               </tr>
                               <tr>
@@ -74,14 +74,15 @@ cursor:pointer;
                         
 
                         <tbody>
-                          {% for p in std %}
+                          {% for p in ptm %}
                           
                               
                           <tr class="table-row">
-                            <td ><a class="m-3" href="{% url 'stock_month' p.id %}">{{p.name}}</a></td>
-                            <td  style="text-align: center;">{{closing_qun}} BTL</td>
+                            
+                            <td ><a class="m-3" href="{% url 'items_2' p.id %}">{{p.name}}</a></td>
+                            <td  style="text-align: center;">{{p.quantity}} </td>
                             <td  style="text-align: center;">{{p.rate}}</td>
-                            <td  style="text-align: center;">{{closing_val}}</td>
+                            <td  style="text-align: center;">{{p.value}}</td>
                           </tr>
                          
                                 
@@ -149,9 +150,9 @@ cursor:pointer;
                             <tr class="table-row">
                                 <th  ><h6 class="d-flex align-items-sm-start par p-1 py-1 foot" style="margin-left: 0px;">Grand Total</h6></th>
                                 
-                                <td  style="text-align: center;">{{closing_qun}} BTL</td>
+                                <td  style="text-align: center;"> {{opening_quntity}} BTL</td>
                                 <td  style="text-align: center;"></td>
-                                <td  style="text-align: center;">{{closing_val}}</td>
+                                <td  style="text-align: center;">{{opening_value}}</td>
                                 
                             </tr>
 
