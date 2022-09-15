@@ -18,7 +18,7 @@ def grp_month(request,pk):
         total_debit+=int(i.debit)
         total_credit+=int(i.credit)
         
-    opening_balance=int(std.ledger_opening_bal)+total_credit-total_debit
+    opening_balance=total_debit-int(std.ledger_opening_bal)+total_credit
     if opening_balance>0 :
         std.ledger_type=opening_balance
         std.save()
@@ -39,17 +39,47 @@ def sales_month(request,pk):
         total_debit+=int(i.debit)
         total_credit+=int(i.credit)
         
-    opening_balance=int(std.ledger_opening_bal)+total_credit-total_debit
+    opening_balance=total_debit-int(std.ledger_opening_bal)+total_credit
     
     # std.ledger_type=opening_balance
     # std.save()
     
     return render(request,'sales_month.html',{'std':std,'total_debit':total_debit,'total_credit':total_credit,'opening_balance':opening_balance})
 
+
+def payhead_month(request,pk):
+    std=create_payhead.objects.get(id=pk)
+    vouch2=add_voucher2.objects.all()
+    total_debit=0
+    total_credit=0
+    for i in vouch2:
+        total_debit+=int(i.debit)
+        total_credit+=int(i.credit)
+        
+    opening_balance=total_debit-int(std.opening_balance)+total_credit
+    return render(request,'month_payhead.html',{'std':std,'total_debit':total_debit,'total_credit':total_credit,'opening_balance':opening_balance})
+
 def pay_voucher(request,pk):
     std=create_payhead.objects.get(id=pk)
     vouch2=add_voucher2.objects.all()
-    return render(request,'payhead_voucher.html',{'std':std,'vouch2':vouch2})
+    total_debit=0
+    total_credit=0
+    
+    for i in vouch2 :
+        total_debit+=int(i.debit)
+        total_credit+=int(i.credit)
+        
+    opening_balance=total_debit-int(std.opening_balance)+total_credit
+    
+    if opening_balance>0 :
+        std.leave_withpay=opening_balance
+        std.save()
+        
+    else :
+        std.leave_with_out_pay=opening_balance*-1
+        std.save()
+    
+    return render(request,'payhead_voucher.html',{'std':std,'vouch2':vouch2,'total_debit':total_debit,'total_credit':total_credit,'opening_balance':opening_balance})
 
 def stock_voucher(request,pk):
     std=group_summary.objects.get(id=pk)
@@ -92,52 +122,67 @@ def profit(request):
     total_purch=0
     total_direct_exp=0
     total_indirect=0
+    #sales account total
     for i in balance:
         if(i.group_under=='Sales_Account'):
-            total+=int(i.ledger_opening_bal)
+            total+=int(i.ledger_type)
+            total+=int(i.provide_banking_details)
             
+    #indirect income total        
     for i in balance_py:
         if(i.under=='Income(Indirect)'):
-            total_income+=int(i.opening_balance)
+            total_income+=int(i.leave_withpay)
+            total_income+=int(i.leave_with_out_pay)
     for p in balance_le:
          if(p.group_under=='income_Indirect'):
-             total_income+=int(p.ledger_opening_bal) 
+             total_income+=int(p.ledger_type) 
+             total_income+=int(p.provide_banking_details)
+             
+    #direct income total
              
     for i in balance_py:
         if(i.under=='Direct Incomes'):
-            total_direct+=int(i.opening_balance)    
+            total_direct+=int(i.leave_withpay) 
+            total_direct+=int(i.leave_with_out_pay) 
     
     for p in balance_le:
         if(p.group_under=='Direct Incomes'):
-            total_direct+=int(p.ledger_opening_bal) 
-    
+            total_direct+=int(p.ledger_type) 
+            total_direct+=int(p.provide_banking_details)
+            
+    #closing stock
     for k in  balance_group:
         total_grp+=int(k.value)
         
-    #second particular 
+    #purchase account total 
     
     for i in balance:
         if(i.group_under=='Purchase_Account'):
-            total_purch+=int(i.ledger_opening_bal)
+            total_purch+=int(i.ledger_type)
+            total_purch+=int(i.provide_banking_details)
     
-    # indirect expenses total
+    #direct expenses total
            
     for i in balance_py:
         if(i.under=='Direct Expenses'):
-            total_direct_exp+=int(i.opening_balance)    
+            total_direct_exp+=int(i.leave_withpay) 
+            total_direct_exp+=int(i.leave_with_out_pay)     
     
     for p in balance_le:
         if(p.group_under=='Direct Expenses'):
-            total_direct_exp+=int(p.ledger_opening_bal) 
+            total_direct_exp+=int(p.ledger_type) 
+            total_direct_exp+=int(p.provide_banking_details) 
             
     #indirect expenses total   
     
     for i in balance_py:
         if(i.under=='Indirect Expenses'):
-            total_indirect+=int(i.opening_balance)
+            total_indirect+=int(i.leave_withpay)
+            total_indirect+=int(i.leave_with_out_pay)
     for p in balance_le:
          if(p.group_under=='Expences_Indirect'):
-            total_indirect+=int(p.ledger_opening_bal)    
+            total_indirect+=int(p.ledger_type) 
+            total_indirect+=int(p.provide_banking_details)    
             
     #closing stock
     std=group_summary.objects.all()
@@ -159,7 +204,7 @@ def profit(request):
         total_val+=int(p.value)
         total_qun+=int(p.quantity)
                 
-    closing_value=total_val *3
+    closing_value=total_val
     closing_quntity=total_qun-total_qunity        
             
                    
@@ -178,12 +223,13 @@ def  payhead_list(request):
     total_d=0
     for i in balance:
         if(i.under=='Direct Incomes'):
-            total+=int(i.opening_balance)
+            total+=int(i.leave_withpay)
+            total_d+=int(i.leave_with_out_pay)
     for p in balance_le:
-         if((p.group_under=='Direct Incomes') &(p.ledger_cr_db=='Cr')):
-             total+=int(p.ledger_opening_bal) 
-         elif((p.group_under=='Direct Incomes') &(p.ledger_cr_db=='Dr')):
-             total_d+=int(p.ledger_opening_bal) 
+         if(p.group_under=='Direct Incomes') :
+             total+=int(p.ledger_type) 
+             total_d+=int(p.provide_banking_details)
+         
     
     
     return render(request,'payhead_items.html',{'std':std,'stm':stm,'total':total,'total_d':total_d}) 
@@ -193,18 +239,14 @@ def  payhead_list(request):
 def direct_exprenses(request):
     std=create_payhead.objects.filter(under='Direct Expenses')
     stm=Ledger.objects.filter(group_under='Direct Expenses')
-    balance=create_payhead.objects.all()
-    balance_le=Ledger.objects.all()
     total=0
     total_d=0
-    for i in balance:
-        if(i.under=='Direct Expenses'):
-            total+=int(i.opening_balance)
-    for p in balance_le:
-         if((p.group_under=='Direct Expenses') &(p.ledger_cr_db=='Cr')):
-             total+=int(p.ledger_opening_bal) 
-         elif((p.group_under=='Direct Expenses') &(p.ledger_cr_db=='Dr')):
-             total_d+=int(p.ledger_opening_bal) 
+    for i in std:
+        total+=int(i.leave_withpay)
+        total_d+=int(i.leave_with_out_pay)
+    for p in stm:
+        total+=int(p.ledger_type) 
+        total_d+=int(p.provide_banking_details)
     return render(request,'direct_expenses.html',{'std':std,'stm':stm,'total':total,'total_d':total_d}) 
 
 def sales(request):
@@ -213,30 +255,25 @@ def sales(request):
     total=0
     total_d=0
     for i in balance:
-        if ((i.group_under=='Sales_Account') &(i.ledger_cr_db=='Cr')):
-             total+=int(i.ledger_opening_bal) 
-        elif((i.group_under=='Sales_Account') &(i.ledger_cr_db=='Dr')):
-            total_d+=int(i.ledger_opening_bal) 
+        if (i.group_under=='Sales_Account') :
+            total+=int(i.ledger_type)
+            total_d+=int(i.provide_banking_details)
+        
                  
     return render(request,'sales_accounts.html',{'std':std,'total':total,'total_d':total_d})
 
 def purchase(request):
     std=Ledger.objects.filter(group_under='Purchase_Account')
-    balance=Ledger.objects.all()
+    
     total=0
     total_d=0
-    for i in balance:
-        if ((i.group_under=='Purchase_Account') &(i.ledger_cr_db=='Cr')):
-             total+=int(i.ledger_opening_bal) 
-        elif((i.group_under=='Purchase_Account') &(i.ledger_cr_db=='Dr')):
-            total_d+=int(i.ledger_opening_bal) 
+    for i in std:
+        total+=int(i.ledger_type)
+        total_d+=int(i.provide_banking_details)
     return render(request,'purchase_list.html',{'std':std,'total':total,'total_d':total_d})
 
 
 
-def payhead_month(request,pk):
-    std=create_payhead.objects.get(id=pk)
-    return render(request,'month_payhead.html',{'std':std})
 
 def stock_month(request,pk):
     std=group_summary.objects.get(id=pk)
@@ -367,18 +404,15 @@ def stock_group2(request):
 def indirect(request):
     std=create_payhead.objects.filter(under='Income(Indirect)')
     stm=Ledger.objects.filter(group_under='income_Indirect')
-    balance=create_payhead.objects.all()
-    balance_le=Ledger.objects.all()
+    
     total=0
     total_d=0
-    for i in balance:
-        if(i.under=='Income(Indirect)'):
-            total+=int(i.opening_balance)
-    for p in balance_le:
-         if((p.group_under=='income_Indirect') &(p.ledger_cr_db=='Cr')):
-             total+=int(p.ledger_opening_bal) 
-         elif((p.group_under=='income_Indirect') &(p.ledger_cr_db=='Dr')):
-             total_d+=int(p.ledger_opening_bal) 
+    for i in std:
+        total+=int(i.leave_withpay)
+        total_d+=int(i.leave_with_out_pay)
+    for p in stm:
+        total+=int(p.ledger_type) 
+        total_d+=int(p.provide_banking_details)
     
     
     return render(request,'indirect_income.html',{'std':std,'stm':stm,'total':total,'total_d':total_d})
@@ -388,18 +422,15 @@ def indirect(request):
 def indirect_expenses(request):
     std=create_payhead.objects.filter(under='Indirect Expenses')
     stm=Ledger.objects.filter(group_under='Expences_Indirect')
-    balance=create_payhead.objects.all()
-    balance_le=Ledger.objects.all()
+    
     total=0
     total_d=0
-    for i in balance:
-        if(i.under=='Indirect Expenses'):
-            total+=int(i.opening_balance)
-    for p in balance_le:
-         if((p.group_under=='Expences_Indirect') &(p.ledger_cr_db=='Cr')):
-             total+=int(p.ledger_opening_bal) 
-         elif((p.group_under=='Expences_Indirect') &(p.ledger_cr_db=='Dr')):
-             total_d+=int(p.ledger_opening_bal) 
+    for i in std:
+        total+=int(i.leave_withpay)
+        total_d+=int(i.leave_with_out_pay)
+    for p in stm:
+        total+=int(p.ledger_type) 
+        total_d+=int(p.provide_banking_details)
     
     
     return render(request,'indirect_expences.html',{'std':std,'stm':stm,'total':total,'total_d':total_d})
