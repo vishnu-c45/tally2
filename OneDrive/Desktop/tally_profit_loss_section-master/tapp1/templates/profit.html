@@ -21,6 +21,12 @@
         visibility: hidden;
         
     }
+    .mt_gross{
+
+        margin-top: 45px;
+        
+    }
+
     
 </style>
 
@@ -60,7 +66,7 @@
                
                 <li class="list2" style="border-top:1px solid ;"><i id="tot" class="float-right" ></i></li>
                 
-                <li class="list2 mt-5 "><a  href="#" >Gross Loss</a><i id="gross_loss2" class="float-right"></i></li>
+                <li class="list2 mt-3 "><a  href="#" >Gross Loss</a><i id="gross_loss2" class="float-right"></i></li>
                 <li class="list2"><a href="{% url 'indirect_expenses' %}" >Indirect Expenses</a><i id="indirect_exp" class="float-right">{{total_indirect}}</i></li>
                
 
@@ -85,8 +91,8 @@
                     <li class="list2"><a href="sales">Sales Acount</a><i id="sales" class="float-right">{{total}}</i></li>
                     <li class="list2"><a href="payhead_list" >Direct Income</a><i id="direct" class="float-right">{{total_direct}}</i></li>
                     <li class="list2"><a href="stockgroup" >Closing stock</a><i id="stock" class="float-right">{{closing_value}}</i></li>
-                    <li class="list2" style="border-top:1px solid ;"><i class="float-right" id="total"></i></li>
-                    <li class="list2 mt-5"><a href="#" >Gross profit</a><i class="float-right" id="gross_profit"></i></li>
+                    <li class="list2 mt-5" style="border-top:1px solid ;"><i class="float-right" id="total"></i></li>
+                    <li class="list2 mt_gross"><a href="#" >Gross profit</a><i class="float-right" id="gross_profit"></i></li>
                     <li class="list2"><a href="indirect" >Indirect Incomes</a><i id="indirect" class="float-right">{{total_income}}</i></li>
                    
                     

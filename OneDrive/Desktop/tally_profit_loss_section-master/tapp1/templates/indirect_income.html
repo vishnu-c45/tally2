@@ -106,7 +106,7 @@
 
                 {% for p in std %}
                 
-                <li class="list2"><a href="{% url 'payhead_month' p.id %}">{{p.name}}</a><i class="open">{{p.leave_with_out_pay}}</i><i class="open2">{{p.leave_withpay}}</i></li>
+                <li class="list2"><a href="{% url 'payhead_month' p.id %}">{{p.name}}</a><i class="open">{{p.leave_withpay}}</i><i class="open2">{{p.leave_with_out_pay}}</i></li>
 
                 {% endfor  %}
                 
@@ -114,7 +114,7 @@
               
                 {% for t in stm %}
                
-                <li class="list2"><a  href="{% url 'sales_month' t.id %}">{{t.ledger_name}}</a><i class="open">{{t.provide_banking_details}}</i><i class="open2">{{t.ledger_type}}</i></li>
+                <li class="list2"><a  href="{% url 'sales_month_2' t.id %}">{{t.ledger_name}}</a><i class="open">{{t.ledger_type}}</i><i class="open2"> {{t.provide_banking_details}}</i></li>
 
                 {% endfor  %}
                
@@ -141,8 +141,8 @@
 
             <div class="row ml-2" style="margin-top: 15px;margin-bottom: 15px; font-size: 18px;">
                 <div class="col-sm-10 m-0 p-0 " ><a style="margin-left: 30px;">Grand Total</a></div>
-                <div class="col-sm-1 m-0 p-0 " ><a class="total" >{{total}}</a></div>
-                <div class="col-sm-1 m-0 p-0 " ><a class="total ml-2" >{{total_d}}</a></div>
+                <div class="col-sm-1 m-0 p-0 " ><a class="total" >{{total_d}}</a></div>
+                <div class="col-sm-1 m-0 p-0 " ><a class="total ml-2" >{{total}}</a></div>
                    
             </div>
 

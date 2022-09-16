@@ -1,7 +1,7 @@
 from functools import total_ordering
 from pickle import FALSE
 from django.shortcuts import render,redirect
-from .models import CreateStockGrp,group_summary,payhead_crt,create_payhead,Ledger,ledger_tax,Ledger_Banking_Details,Ledger_Mailing_Address,Ledger_Rounding,Ledger_Satutory,Ledger_sundry,Ledger_Tax_Register,add_voucher,add_voucher2
+from .models import CreateStockGrp,group_summary,payhead_crt,create_payhead,Ledger,ledger_tax,Ledger_Banking_Details,Ledger_Mailing_Address,Ledger_Rounding,Ledger_Satutory,Ledger_sundry,Ledger_Tax_Register,add_voucher,add_voucher2,add_voucher3
 
 # Create your views here.
 
@@ -29,6 +29,26 @@ def grp_month(request,pk):
             
     return render(request,'group_month.html',{'std':std,'vouch2':vouch2,'total_debit':total_debit,'total_credit':total_credit,'opening_balance':opening_balance})
 
+def grp_month_2(request,pk):
+    std=Ledger.objects.get(id=pk)
+    vouch3=add_voucher3.objects.all()
+    total_debit=0
+    total_credit=0
+    for i in vouch3:
+        total_debit+=int(i.debit)
+        total_credit+=int(i.credit)
+        
+    opening_balance=total_credit-int(std.ledger_opening_bal)+total_debit
+    if opening_balance>0 :
+        std.ledger_type=opening_balance
+        std.save()
+        
+    else :
+        std.provide_banking_details=opening_balance*-1
+        std.save()
+            
+    return render(request,'grp_voucher.html',{'std':std,'vouch2':vouch3,'total_debit':total_debit,'total_credit':total_credit,'opening_balance':opening_balance})
+
 def sales_month(request,pk):
     std=Ledger.objects.get(id=pk)
     
@@ -45,6 +65,23 @@ def sales_month(request,pk):
     # std.save()
     
     return render(request,'sales_month.html',{'std':std,'total_debit':total_debit,'total_credit':total_credit,'opening_balance':opening_balance})
+
+def sales_month_2(request,pk):
+    std=Ledger.objects.get(id=pk)
+    
+    vouch3=add_voucher3.objects.all()
+    total_debit=0
+    total_credit=0
+    for i in vouch3:
+        total_debit+=int(i.debit)
+        total_credit+=int(i.credit)
+        
+    opening_balance=total_credit-int(std.ledger_opening_bal)+total_debit
+    
+    # std.ledger_type=opening_balance
+    # std.save()
+    
+    return render(request,'sales_income_month.html',{'std':std,'total_debit':total_debit,'total_credit':total_credit,'opening_balance':opening_balance})
 
 
 def payhead_month(request,pk):
@@ -96,7 +133,12 @@ def stock_voucher(request,pk):
             total_val+=int(i.value) 
             total_qun+=int(i.quntity)
     closing_qun=total_qun-total_qunity  
-    closing_val=total_val-total_value      
+    closing_val=total_val-total_value 
+    
+    std.rate_of_duty=closing_val
+    std.additional=closing_qun
+    std.save()    
+    
     context={
         'std':std,
         'vouch':vouch,
@@ -186,29 +228,34 @@ def profit(request):
             
     #closing stock
     std=group_summary.objects.all()
-    vouch=add_voucher.objects.all()
+    # vouch=add_voucher.objects.all()
     total_val=0
     total_qun=0
-    total_value=0
-    total_qunity=0
+    # total_value=0
+    # total_qunity=0
     
-    for i in vouch:
-        if (i.voucher_type=='sales'):
-            total_value+=int(i.value)
-            total_qunity+=int(i.quntity)
-        elif (i.voucher_type=='purchase'):
-            total_val+=int(i.value) 
-            total_qun+=int(i.quntity)
+    # for i in vouch:
+    #     if (i.voucher_type=='sales'):
+    #         total_value+=int(i.value)
+    #         total_qunity+=int(i.quntity)
+    #     elif (i.voucher_type=='purchase'):
+    #         total_val+=int(i.value) 
+    #         total_qun+=int(i.quntity)
        
-    for p in std:
-        total_val+=int(p.value)
-        total_qun+=int(p.quantity)
+    # for p in std:
+    #     total_val+=int(p.value)
+    #     total_qun+=int(p.quantity)
                 
-    closing_value=total_val
-    closing_quntity=total_qun-total_qunity        
-            
+    
+    # closing_quntity=total_qun-total_qunity        
+    
+    for p in std:
+        total_val+=int(p.rate_of_duty)
+        total_qun+=int(p.additional)
+        
+    closing_value=total_val      
                    
-    return render(request,'profit.html',{'total':total,'total_income':total_income,'total_direct':total_direct,'total_grp':total_grp,'total_purch':total_purch,'total_direct_exp':total_direct_exp,'total_indirect':total_indirect,'closing_value':closing_value,'closing_quntity':closing_quntity,}) 
+    return render(request,'profit.html',{'total':total,'total_income':total_income,'total_direct':total_direct,'total_grp':total_grp,'total_purch':total_purch,'total_direct_exp':total_direct_exp,'total_indirect':total_indirect,'closing_value':closing_value,}) 
 
 
 
@@ -307,35 +354,38 @@ def stock_month(request,pk):
 
 def item_list(request,pk):
     std=group_summary.objects.filter(CreateStockGrp_id=pk)
-    vouch=add_voucher.objects.all()
+    ptm=CreateStockGrp.objects.get(id=pk)
+    #vouch=add_voucher.objects.all()
     total=0
     total_qty=0
-    total_value=0
-    total_qunity=0
     
-    for p in std:
-        total_qun=int(p.quantity)
-        total_val=int(p.value)
-    # calculation of voucher
-    for i in vouch:
-        if (i.voucher_type=='sales'):
-            total_value +=int(i.value)
-            total_qunity+=int(i.quntity)
-        elif (i.voucher_type=='purchase'):
-            total_val+=int(i.value) 
-            total_qun+=int(i.quntity)
-            closing_qun=total_qun-total_qunity  
-    closing_val=total_val-total_value 
-   
     
-    for i in std:
-        total+=int(i.value)
-        total_qty+=int(i.quantity)
         
-    return render(request,'items.html',{'std':std,'total':total,'total_qty':total_qty,'closing_val':closing_val,'closing_qun':closing_qun,}) 
+    # calculation of voucher
+    # for i in vouch:
+    #     if (i.voucher_type=='sales'):
+    #         total_value +=int(i.value)
+    #         total_qunity+=int(i.quntity)
+    #     elif (i.voucher_type=='purchase'):
+    #         total_val+=int(i.value) 
+    #         total_qun+=int(i.quntity)
+    #         closing_qun=total_qun-total_qunity  
+    # closing_val=total_val-total_value 
+   
+   
+    for i in std:
+        total+=int(i.rate_of_duty)
+        total_qty+=int(i.additional)
+        
+        
+    ptm.quantities=total   
+    ptm.save()
+        
+    return render(request,'items.html',{'std':std,'total':total,'total_qty':total_qty,}) 
  
 def items_2(request,pk):
     ptm=group_summary.objects.filter(CreateStockGrp_id=pk)
+    ptc=CreateStockGrp.objects.get(id=pk)
     
     vouch=add_voucher.objects.all()
     total=0
@@ -362,6 +412,9 @@ def items_2(request,pk):
         total+=int(i.value)
         total_qty+=int(i.quantity)
         
+    ptc.alias=total
+    ptc.save()    
+        
     return render(request,'item_2.html',{'ptm':ptm,'closing_val':closing_val,'closing_qun':closing_qun,'total':total})
     
 def stockgroup(request):
@@ -373,21 +426,21 @@ def stockgroup(request):
     total_value=0
     total_qunity=0
     
-    for i in vouch:
-        if (i.voucher_type=='sales'):
-            total_value+=int(i.value)
-            total_qunity+=int(i.quntity)
-        elif (i.voucher_type=='purchase'):
-            total_val+=int(i.value) 
-            total_qun+=int(i.quntity)
+    # for i in vouch:
+    #     if (i.voucher_type=='sales'):
+    #         total_value+=int(i.value)
+    #         total_qunity+=int(i.quntity)
+    #     elif (i.voucher_type=='purchase'):
+    #         total_val+=int(i.value) 
+    #         total_qun+=int(i.quntity)
        
     for p in std:
-        total_val+=int(p.value)
-        total_qun+=int(p.quantity)
+        total_val+=int(p.rate_of_duty)
+        total_qun+=int(p.additional)
                 
-    closing_value=total_val-total_value
-    closing_quntity=total_qun-total_qunity
-    return render(request,'stockgroup.html',{'std':std,'closing_value':closing_value,'closing_quntity':closing_quntity,'ptm':ptm})
+    # closing_value=total_val-total_value
+    # closing_quntity=total_qun-total_qunity
+    return render(request,'stockgroup.html',{'std':std,'ptm':ptm,'total_val':total_val,'total_qun':total_qun})
 
 def stock_group2(request):
     ptm=CreateStockGrp.objects.all()

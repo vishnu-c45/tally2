@@ -79,9 +79,9 @@ cursor:pointer;
                               
                           <tr class="table-row">
                             <td ><a class="m-3" href="{% url 'stock_month' p.id %}">{{p.name}}</a></td>
-                            <td  style="text-align: center;">{{closing_qun}} BTL</td>
+                            <td  style="text-align: center;">{{p.additional}} BTL</td>
                             <td  style="text-align: center;">{{p.rate}}</td>
-                            <td  style="text-align: center;">{{closing_val}}</td>
+                            <td  style="text-align: center;">{{p.rate_of_duty}}</td>
                           </tr>
                          
                                 
@@ -149,9 +149,9 @@ cursor:pointer;
                             <tr class="table-row">
                                 <th  ><h6 class="d-flex align-items-sm-start par p-1 py-1 foot" style="margin-left: 0px;">Grand Total</h6></th>
                                 
-                                <td  style="text-align: center;">{{closing_qun}} BTL</td>
+                                <td  style="text-align: center;">{{total_qty}} BTL</td>
                                 <td  style="text-align: center;"></td>
-                                <td  style="text-align: center;">{{closing_val}}</td>
+                                <td  style="text-align: center;">{{total}}</td>
                                 
                             </tr>
 

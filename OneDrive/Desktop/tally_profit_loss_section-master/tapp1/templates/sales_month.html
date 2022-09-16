@@ -67,7 +67,7 @@ cursor:pointer;
                                 <td><i>Opening Balance</i><i class="float-right "></i></td>
                                 <td></td>
                                 <td></td>
-                                <td style="text-align: center;"><strong>{{std.ledger_opening_bal}}</strong></td>
+                                <td style="text-align: center;"><strong>{{std.ledger_opening_bal}}.Cr</strong></td>
 
                             </tr>
                             
@@ -120,7 +120,7 @@ cursor:pointer;
                                 <td><a href="{% url 'grp_month' std.id %}">April</a></td>
                                 <td style="text-align: center;">{{total_debit}}</td>
                                 <td style="text-align: center;">{{total_credit}}</td>
-                                <td style="text-align: center;"><strong>{{opening_balance}}</strong></td>
+                                <td style="text-align: center;"><strong>{{opening_balance}}.Dr</strong></td>
 
                             </tr>
 
@@ -208,7 +208,7 @@ cursor:pointer;
                                 
                                 <th  style="text-align: end;">{{total_debit}}</th>
                                 <th  style="text-align: end;">{{total_credit}}</th>
-                                <th  style="text-align: end;">{{opening_balance}}</th>
+                                <th  style="text-align: end;">{{opening_balance}}.Dr</th>
                                 
                             </tr>
 

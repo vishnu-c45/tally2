@@ -82,7 +82,7 @@ cursor:pointer;
                             <td ><a class="m-3" href="{% url 'item_list' p.id %}">{{p.name}}</a></td>
                             <td  style="text-align: center;">{{p.quantity}} </td>
                             <td  style="text-align: center;">{{p.rate}}</td>
-                            <td  style="text-align: center;">{{p.value}}</td>
+                            <td  style="text-align: center;">{{p.quantities}}.00</td>
                           </tr>
                          
                                 
@@ -150,9 +150,9 @@ cursor:pointer;
                             <tr class="table-row">
                                 <th  ><h6 class="d-flex align-items-sm-start par p-1 py-1 foot" style="margin-left: 0px;">Grand Total</h6></th>
                                 
-                                <td  style="text-align: center;"> {{closing_quntity}} BTL</td>
                                 <td  style="text-align: center;"></td>
-                                <td  style="text-align: center;">{{closing_value}}</td>
+                                <td  style="text-align: center;"></td>
+                                <td  style="text-align: center;">{{total_val}}.00</td>
                                 
                             </tr>
 
